@@ -1,0 +1,2 @@
+rootProject.name='Headwolf'
+include ':app'
