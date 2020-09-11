@@ -32,6 +32,8 @@
 - handlers
   > 基础处理类
   - BaseHandler
+  > 测试类
+  - KuaishouHandler
 > 初始化管理类
 - initialization
   > 基础初始化类
@@ -40,10 +42,14 @@
   - Register
 > 工具类
 - utils
+  > 类查询助手
+  - ClassesReaderAssistant 
   > 通信助手
   - CommunicationAssistant
   > 算法助手
   - AlgorithmAssistant
+  > 配置文件助手
+  - PropertiesAssistant
 - Config
 
 ## Install
