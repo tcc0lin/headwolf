@@ -20,36 +20,52 @@
 
 > 公共类
 - commons 
+
   > 统一日志类
   - Logger
+  
 > 入口类 
 - entry
+
   > Hook第一层入口（包括免重启等功能）
   - BaseEntry
+
   > Hook逻辑入口，由第一层入口加载，包含具体的Hook逻辑
   - RealEntry
+
 > 事件处理类 
 - handlers
+
   > 基础处理类
   - BaseHandler
+
   > 测试类
   - KuaishouHandler
+
 > 初始化管理类
 - initialization
+
   > 基础初始化类
   - BaseInit
+
   > 注册类，管理与Sekiro服务端通信
   - Register
+
 > 工具类
 - utils
+
   > 类查询助手
   - ClassesReaderAssistant 
+
   > 通信助手
   - CommunicationAssistant
+
   > 算法助手
   - AlgorithmAssistant
+
   > 配置文件助手
   - PropertiesAssistant
+  
 - Config
 
 ## Install

@@ -7,5 +7,8 @@ package com.lateautumn4lin.headwolf.utils;
  * @date 2020/9/10 13:54
  */
 
+/**
+ * The type Communication assistant.
+ */
 public class CommunicationAssistant {
 }

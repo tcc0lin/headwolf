@@ -7,5 +7,8 @@ package com.lateautumn4lin.headwolf.initialization;
  * @date 2020/9/10 13:49
  */
 
+/**
+ * The type Base init.
+ */
 public class BaseInit {
 }

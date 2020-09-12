@@ -3,6 +3,7 @@
     package="com.lateautumn4lin.headwolf">
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,6 +17,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- 是否是xposed模块，xposed根据这个来判断是否是模块 -->
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true" />
+
+        <!-- 模块描述，显示在xposed模块列表那里第二行 -->
+        <meta-data
+            android:name="xposeddescription"
+            android:value="基于Xposed和Sekiro搭建的敏捷开发的脚手架" />
+
+        <!-- 最低xposed版本号(lib文件名可知) -->
+        <meta-data
+            android:name="xposedminversion"
+            android:value="30" />
     </application>
 
 </manifest>
