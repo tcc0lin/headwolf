@@ -16,6 +16,11 @@
 
 暂无
 
+## Features introduction
+
+1. No restart debugging（免重启调试）
+2. Configure the framework by the configuration file（由配置文件配置框架）
+
 ## Structure introduction
 
 > 公共类
