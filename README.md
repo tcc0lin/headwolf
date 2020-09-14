@@ -8,7 +8,7 @@
 
 > Scaffolding for agile development based on Xposed and Sekiro (基于Xposed和Sekiro搭建的敏捷开发的脚手架)
 
-> 借鉴于[virjar大佬](https://github.com/virjar)的[Sekiro框架](https://github.com/virjar/sekiro)，感谢大佬分享:ok_woman:
+> 借鉴于@[virjar大佬](https://github.com/virjar)的[Sekiro框架](https://github.com/virjar/sekiro)，感谢大佬分享:ok_woman:
 
 ### 🏠 [Homepage]()
 
@@ -92,15 +92,33 @@ step3: run the test project E.g kuaishou
 
 ## Usage
 
-```sh
-1. 
-```
+**step1：** 在源码中加入hook app的包名，由于技术lj，没有能够实现自动加载配置文件、后续实现
+
+![step1](https://github.com/lateautumn4lin/headwolf/blob/master/sources/step1.png)
+
+**step2：** 在配置文件中配置相应hook项目的信息，包括包名和主页activity，以便于后续打开app时hook到主页activity向sekiro服务端注册
+
+![step2](https://github.com/lateautumn4lin/headwolf/blob/master/sources/step2.png)
+
+**step3：** 开发对应hook app的handlers，参考现有的快手的handler模块
+
+![step3](https://github.com/lateautumn4lin/headwolf/blob/master/sources/step3.png)
+
+**案例演示：** 看看实际演示效果！
+
+![案例演示](https://github.com/lateautumn4lin/headwolf/blob/master/sources/%E8%B0%83%E7%94%A8%E6%A1%88%E4%BE%8B.png)
 
 ## Run tests
 
+**案例测试：**参考快手的项目
+
 ```sh
-参考源码中快手项目的Hook
+参考源码中快手和pdd项目的Hook
 ```
+
+**并发测试：**采用C:50*1000（总请求） M:1000（并发请求）的方案
+
+![Jmeter并发测试](https://github.com/lateautumn4lin/headwolf/blob/master/sources/Jmeter%E5%B9%B6%E5%8F%91%E6%B5%8B%E8%AF%95.png)
 
 ## Author
 
