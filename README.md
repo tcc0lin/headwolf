@@ -25,57 +25,57 @@
 ## Structure introduction
 
 > 公共类
-- commons 
+- **commons** 
 
   > 统一日志类
-  - Logger
+  - **Logger**
   
   > 响应线程Task类
-  - Response
+  - **Response**
   
 > 入口类 
-- entry
+- **entry**
 
   > Hook第一层入口（包括免重启等功能）
-  - BaseEntry
+  - **BaseEntry**
 
   > Hook逻辑入口，由第一层入口加载，包含具体的Hook逻辑
-  - RealEntry
+  - **RealEntry**
 
 > 事件处理类 
-- handlers
+- **handlers**
 
   > 基础处理类
-  - BaseHandler
+  - **BaseHandler**
 
   > 测试类
-  - KuaishouHandler
+  - **KuaishouHandler**
 
 > 初始化管理类
-- initialization
+- **initialization**
 
   > 基础初始化类
-  - BaseInit
+  - **BaseInit**
 
   > 注册类，管理与Sekiro服务端通信
-  - Register
+  - **Register**
 
 > 工具类
-- utils
+- **utils**
 
   > 类查询助手
-  - ClassesReaderAssistant 
+  - **ClassesReaderAssistant**
 
   > 通信助手
-  - CommunicationAssistant
+  - **CommunicationAssistant**
 
   > 算法助手
-  - AlgorithmAssistant
+  - **AlgorithmAssistant**
 
   > 配置文件助手
-  - PropertiesAssistant
+  - **PropertiesAssistant**
   
-- Config
+- **Config**
 
 ## Description
 ![相关图示说明](https://github.com/lateautumn4lin/diagrams_dir/blob/master/headwolf_flow.png)
