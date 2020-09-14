@@ -16,6 +16,7 @@ import com.lateautumn4lin.headwolf.commons.Logger;
 
 import java.io.File;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import dalvik.system.PathClassLoader;
@@ -29,21 +30,18 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
  * The type Base entry. 第一层Hook入口
  */
 public class BaseEntry implements IXposedHookLoadPackage {
-    private String modulePackage = null;
-    private static List<String> hookPackages = null;
+    private String modulePackage = "com.lateautumn4lin.headwolf";
+    private static List<String> hookPackages = new ArrayList<String>();
     private final String handleHookClass = RealEntry.class.getName();
     private final String handleHookMethod = "handleLoadPackage";
+
+    static {
+        hookPackages.add("com.smile.gifmaker");
+    }
 
     @Override
     public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
         try {
-//            延迟初始化静态变量
-            if (modulePackage == null) {
-                modulePackage = Config.GetPackageName();
-            }
-            if (hookPackages == null) {
-                hookPackages = Config.GetHookPackages();
-            }
 //            包含配置文件中配置的包名则进入真正Hook逻辑
             if (hookPackages.contains(loadPackageParam.packageName)) {
                 try {

@@ -1,4 +1,6 @@
 remote_server=192.144.152.23
 package_name=com.lateautumn4lin.headwolf
-package_kuaishou=com.smile.gifmaker
-package_pdd=com.xunmeng.pinduoduo
+group_pdd.name=com.xunmeng.pinduoduo
+group_pdd.home=com.xunmeng.pinduoduo.ui.activity.HomeActivity
+group_kuaishou.name=com.smile.gifmaker
+group_kuaishou.home=com.yxcorp.gifshow.HomeActivity

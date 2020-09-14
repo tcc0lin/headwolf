@@ -20,6 +20,7 @@ import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
+
 /**
  * The type Real entry.
  */
@@ -27,6 +28,8 @@ public class RealEntry implements IXposedHookLoadPackage {
     @Override
     public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
         try {
+//            测试
+            Logger.logi("5555");
             Logger.logi(String.format("Begin Real Hook Logic About:%s", loadPackageParam.packageName));
 //            step1:获取context
             Context context = (Context) XposedHelpers.callMethod(
@@ -39,11 +42,13 @@ public class RealEntry implements IXposedHookLoadPackage {
                     ),
                     "getSystemContext"
             );
-//            step2:获取包名对应的需要注册的handler以及home_class
-            Class HomeClass = loadPackageParam.classLoader.loadClass("com.yxcorp.gifshow.HomeActivity");
             HashMap<String, SekiroRequestHandler> associate_handlers = ClassesReaderAssistant.reader(context, loadPackageParam.packageName);
-//            step3:由注册类进行handler注册
-            Register.GroupRegister(loadPackageParam, HomeClass, associate_handlers);
+//            step2:由注册类进行handler注册
+            if (Register.GroupRegister(loadPackageParam, associate_handlers)) {
+                Logger.logi(String.format("Real Hook Logic About:%s Success", loadPackageParam.packageName));
+            } else {
+                Logger.logi(String.format("Real Hook Logic About:%s Error", loadPackageParam.packageName));
+            }
         } catch (Exception e) {
             Logger.loge(e.toString());
         }

@@ -7,6 +7,8 @@ package com.lateautumn4lin.headwolf;
  * @date 2020/9/10 13:40
  */
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.lateautumn4lin.headwolf.commons.Logger;
 import com.lateautumn4lin.headwolf.handlers.KuaishouHandler;
 import com.lateautumn4lin.headwolf.utils.PropertiesAssistant;
@@ -15,7 +17,6 @@ import com.virjar.sekiro.api.SekiroRequestHandler;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Properties;
 import java.util.UUID;
 
 import static java.util.Arrays.asList;
@@ -25,7 +26,8 @@ import static java.util.Arrays.asList;
  * The type Config.
  */
 public class Config {
-    private static Properties propertiesAssistant = PropertiesAssistant.getProperties();
+    private static HashMap propertiesAssistant = PropertiesAssistant.getJsonProperties();
+    //    预先把handlers文件夹下面的类实现
     private static List<SekiroRequestHandler> handlers = asList(
             (SekiroRequestHandler) new KuaishouHandler()
     );
@@ -44,7 +46,7 @@ public class Config {
     /**
      * The Groups.
      */
-    static private HashMap<String, String> groups = GetAllPackageGroups();
+    static private HashMap<String, HashMap<String, String>> groups = GetAllPackageGroups();
 
     /**
      * Get package name string.
@@ -52,8 +54,7 @@ public class Config {
      * @return the string
      */
     public static String GetPackageName() {
-        Properties propertiesAssistant = PropertiesAssistant.getProperties();
-        return propertiesAssistant.getProperty("package_name");
+        return propertiesAssistant.get("package_name").toString();
     }
 
 
@@ -63,7 +64,7 @@ public class Config {
      * @return the remote server
      */
     public static String getRemoteServer() {
-        return propertiesAssistant.getProperty("remote_server");
+        return propertiesAssistant.get("remote_server").toString();
     }
 
     /**
@@ -84,13 +85,18 @@ public class Config {
      *
      * @return the hash map
      */
-    public static HashMap<String, String> GetAllPackageGroups() {
-        Properties propertiesAssistant = PropertiesAssistant.getProperties();
-        HashMap<String, String> all_package_groups = new HashMap<String, String>();
+    public static HashMap<String, HashMap<String, String>> GetAllPackageGroups() {
+        HashMap<String, HashMap<String, String>> all_package_groups = new HashMap<String, HashMap<String, String>>();
         try {
-            for (String name : propertiesAssistant.stringPropertyNames()) {
-                if (name.contains("package_") ^ name.contains("name")) {
-                    all_package_groups.put(propertiesAssistant.getProperty(name), name);
+            for (Object group : propertiesAssistant.keySet()) {
+                if (((String) group).contains("group")) {
+                    HashMap<String, String> same_group = new HashMap<String, String>();
+                    JsonObject GroupInfo = (new Gson()).toJsonTree(propertiesAssistant.get(group)).getAsJsonObject();
+                    String name = GroupInfo.get("name").toString().replace("\"", "");
+                    String home = GroupInfo.get("home").toString().replace("\"", "");
+                    same_group.put("home", home);
+                    same_group.put("group", group.toString());
+                    all_package_groups.put(name, same_group);
                 }
             }
         } catch (Exception e) {
@@ -107,7 +113,17 @@ public class Config {
      * @return the group
      */
     public static String GetGroup(String type_name) {
-        return groups.get(type_name);
+        return groups.get(type_name).get("group");
+    }
+
+    /**
+     * Get home string.
+     *
+     * @param type_name the type name
+     * @return the string
+     */
+    public static String GetHome(String type_name) {
+        return groups.get(type_name).get("home");
     }
 
     /**
@@ -116,13 +132,10 @@ public class Config {
      * @return the string
      */
     public static List<String> GetHookPackages() {
-        Properties propertiesAssistant = PropertiesAssistant.getProperties();
         List<String> inner_hook_packages = new ArrayList<String>();
         try {
-            for (String name : propertiesAssistant.stringPropertyNames()) {
-                if (name.contains("package_") ^ name.contains("name")) {
-                    inner_hook_packages.add(propertiesAssistant.getProperty(name));
-                }
+            for (String name : groups.keySet()) {
+                inner_hook_packages.add(name);
             }
         } catch (Exception e) {
             Logger.loge(e.toString());

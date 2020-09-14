@@ -29,14 +29,14 @@ public class Register {
      * Base register boolean.
      *
      * @param loadPackageParam   the load package param
-     * @param home_class         the home class
      * @param associate_handlers the associate handlers
      * @return the boolean
      */
-    public static Boolean GroupRegister(final XC_LoadPackage.LoadPackageParam loadPackageParam, Class home_class, final HashMap<String, SekiroRequestHandler> associate_handlers) {
-        final String group_name = Config.GetGroup(loadPackageParam.packageName);
+    public static Boolean GroupRegister(final XC_LoadPackage.LoadPackageParam loadPackageParam, final HashMap<String, SekiroRequestHandler> associate_handlers) {
         try {
-            XposedHelpers.findAndHookMethod(home_class, "onCreate", Bundle.class, new XC_MethodHook() {
+            Class HomeClass = loadPackageParam.classLoader.loadClass(Config.GetHome(loadPackageParam.packageName));
+            final String group_name = Config.GetGroup(loadPackageParam.packageName);
+            XposedHelpers.findAndHookMethod(HomeClass, "onCreate", Bundle.class, new XC_MethodHook() {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     Logger.logi(String.format("Group Register:%s Begin ClientId:%s", group_name, Config.getClientId()));
