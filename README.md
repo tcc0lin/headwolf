@@ -110,13 +110,13 @@ step3: run the test project E.g kuaishou
 
 ## Run tests
 
-**案例测试：**参考快手的项目
+**案例测试：** 参考快手的项目
 
 ```sh
 参考源码中快手和pdd项目的Hook
 ```
 
-**并发测试：**采用C:50*1000（总请求） M:1000（并发请求）的方案
+**并发测试：** 采用C:50*1000（总请求） M:1000（并发请求）的方案
 
 ![Jmeter并发测试](https://github.com/lateautumn4lin/headwolf/blob/master/sources/Jmeter%E5%B9%B6%E5%8F%91%E6%B5%8B%E8%AF%95.png)
 
