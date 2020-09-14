@@ -30,6 +30,9 @@
   > 统一日志类
   - Logger
   
+  > 响应线程Task类
+  - Response
+  
 > 入口类 
 - entry
 
