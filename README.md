@@ -6,7 +6,7 @@
   </a>
 </p>
 
-> 基于Xposed和Sekiro搭建的敏捷开发的脚手架
+> Scaffolding for agile development based on Xposed and Sekiro (基于Xposed和Sekiro搭建的敏捷开发的脚手架)
 
 ### 🏠 [Homepage]()
 
