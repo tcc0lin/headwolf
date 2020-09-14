@@ -8,6 +8,8 @@
 
 > Scaffolding for agile development based on Xposed and Sekiro (基于Xposed和Sekiro搭建的敏捷开发的脚手架)
 
+> 借鉴于![virjar大佬](https://github.com/virjar)的![Sekiro框架](https://github.com/virjar/sekiro)，感谢大佬分享:ok_woman:
+
 ### 🏠 [Homepage]()
 
 暂无
