@@ -6,7 +6,7 @@
   </a>
 </p>
 
-> 基于Xposed和Sekiro搭建的敏捷开发的脚手架
+> Scaffolding for agile development based on Xposed and Sekiro (基于Xposed和Sekiro搭建的敏捷开发的脚手架)
 
 ### 🏠 [Homepage]()
 
@@ -15,6 +15,11 @@
 ### ✨ [Demo]()
 
 暂无
+
+## Features introduction
+
+1. No restart debugging（免重启调试）
+2. Configure the framework by the configuration file（由配置文件配置框架）
 
 ## Structure introduction
 
@@ -67,6 +72,9 @@
   - PropertiesAssistant
   
 - Config
+
+## Description
+![相关图示说明](https://github.com/lateautumn4lin/diagrams_dir/blob/master/headwolf_flow.png)
 
 ## Install
 
