@@ -94,13 +94,19 @@ step3: run the test project E.g kuaishou
 
 **step1：** 在源码中加入hook app的包名，由于技术lj，没有能够实现自动加载配置文件、后续实现
 
+>路径：com.lateautumn4lin.headwolf.entry.BaseEntry
+
 ![step1](https://github.com/lateautumn4lin/headwolf/blob/master/sources/step1.png)
 
 **step2：** 在配置文件中配置相应hook项目的信息，包括包名和主页activity，以便于后续打开app时hook到主页activity向sekiro服务端注册
 
+>路径：assets.config
+
 ![step2](https://github.com/lateautumn4lin/headwolf/blob/master/sources/step2.png)
 
 **step3：** 开发对应hook app的handlers，参考现有的快手的handler模块
+
+>路径：com.lateautumn4lin.headwolf.handlers下新建
 
 ![step3](https://github.com/lateautumn4lin/headwolf/blob/master/sources/step3.png)
 
