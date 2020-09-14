@@ -20,6 +20,7 @@
 
 1. No restart debugging（免重启调试）
 2. Configure the framework by the configuration file（由配置文件配置框架）
+3. High concurrency design（高并发设计）
 
 ## Structure introduction
 
