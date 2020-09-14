@@ -18,6 +18,10 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import dalvik.system.PathClassLoader;
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -34,6 +38,8 @@ public class BaseEntry implements IXposedHookLoadPackage {
     private static List<String> hookPackages = new ArrayList<String>();
     private final String handleHookClass = RealEntry.class.getName();
     private final String handleHookMethod = "handleLoadPackage";
+    private static BlockingQueue blockingQueue = new ArrayBlockingQueue<>(30);
+    public static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(50, 50, 1, TimeUnit.MINUTES, blockingQueue);
 
     static {
         hookPackages.add("com.smile.gifmaker");
