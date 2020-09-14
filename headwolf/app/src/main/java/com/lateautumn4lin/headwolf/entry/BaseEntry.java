@@ -11,7 +11,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
-import com.lateautumn4lin.headwolf.Config;
 import com.lateautumn4lin.headwolf.commons.Logger;
 
 import java.io.File;

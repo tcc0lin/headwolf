@@ -93,13 +93,13 @@ step3: run the test project E.g kuaishou
 ## Usage
 
 ```sh
-follow my steps
+1. 
 ```
 
 ## Run tests
 
 ```sh
-follow my steps
+参考源码中快手项目的Hook
 ```
 
 ## Author
