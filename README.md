@@ -92,7 +92,7 @@ step3: run the test project E.g kuaishou
 
 ## Usage
 
-~~**step1：** 在源码中加入hook app的包名，由于技术lj，没有能够实现自动加载配置文件、后续实现~~
+已实现自动化，省去该步骤 ~~**step1：** 在源码中加入hook app的包名，由于技术lj，没有能够实现自动加载配置文件、后续实现~~
 
 >路径：com.lateautumn4lin.headwolf.entry.BaseEntry
 
@@ -110,13 +110,22 @@ step3: run the test project E.g kuaishou
 
 ![step3](https://github.com/lateautumn4lin/headwolf/blob/master/sources/step3.png)
 
-~~**step4：** 在Config文件中预先添加handler的实例，没有实现动态添加，后续补充~~
+已实现自动化，省去该步骤 ~~**step4：** 在Config文件中预先添加handler的实例，没有实现动态添加，后续补充~~
 
 >路径：com.lateautumn4lin.headwolf.Config
 
 ![step4](https://github.com/lateautumn4lin/headwolf/blob/master/sources/step4.png)
 
 **案例演示：** 看看实际演示效果！
+
+- group
+>也就是Config配置文件中group_pdd/group_kuaishou这两个值，当然你也可以自定义，group_xxxxx开头的就行
+
+- action
+>对应的是每个handler的action获取方法
+
+- name
+>这个就是在handler方法中指定的query参数了，当然也可以放在post请求的body中
 
 ![案例演示](https://github.com/lateautumn4lin/headwolf/blob/master/sources/%E8%B0%83%E7%94%A8%E6%A1%88%E4%BE%8B.png)
 
