@@ -13,6 +13,8 @@ import android.content.Context;
 
 import com.lateautumn4lin.headwolf.Config;
 import com.lateautumn4lin.headwolf.commons.Logger;
+import com.lateautumn4lin.headwolf.entry.RealEntry;
+import com.lateautumn4lin.headwolf.handlers.KuaishouHandler;
 import com.virjar.sekiro.api.SekiroRequestHandler;
 
 import java.io.File;
@@ -107,7 +109,10 @@ public final class ClassesReaderAssistant {
                     if (((String) belong_name).equals(associateName)) {
                         Method getAction = cls.getDeclaredMethod("getAction");
                         Object action = getAction.invoke(instance);
-                        associate_handlers.put((String) action, Config.GetHanlerInstance(cls.getName()));
+                        Class classloader = RealEntry.class.getClassLoader().loadClass(cls.getName());
+                        Constructor handler_constructor = classloader.getConstructor();
+                        Object handler = handler_constructor.newInstance();
+                        associate_handlers.put((String) action, (SekiroRequestHandler) handler);
                     }
                 } catch (NoSuchMethodException e) {
                     Logger.loge(String.format("Can't Find Method:getBelong For %s", packageName));

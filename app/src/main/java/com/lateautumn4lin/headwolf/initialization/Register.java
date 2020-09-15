@@ -11,9 +11,12 @@ import android.os.Bundle;
 
 import com.lateautumn4lin.headwolf.Config;
 import com.lateautumn4lin.headwolf.commons.Logger;
+import com.lateautumn4lin.headwolf.entry.RealEntry;
+import com.lateautumn4lin.headwolf.handlers.KuaishouHandler;
 import com.virjar.sekiro.api.SekiroClient;
 import com.virjar.sekiro.api.SekiroRequestHandler;
 
+import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 

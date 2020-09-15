@@ -27,21 +27,6 @@ import static java.util.Arrays.asList;
  */
 public class Config {
     private static HashMap propertiesAssistant = PropertiesAssistant.getJsonProperties();
-    //    预先把handlers文件夹下面的类实现
-    private static List<SekiroRequestHandler> handlers = asList(
-            (SekiroRequestHandler) new KuaishouHandler()
-    );
-
-    private static HashMap<String, SekiroRequestHandler> handlers_map = GenerateHandlersMap();
-
-    private static HashMap<String, SekiroRequestHandler> GenerateHandlersMap() {
-        HashMap<String, SekiroRequestHandler> map = new HashMap<String, SekiroRequestHandler>();
-        for (SekiroRequestHandler obj : handlers) {
-            map.put(obj.getClass().getName(), obj);
-        }
-        return map;
-    }
-
     private static String client_id = null;
     /**
      * The Groups.
@@ -141,16 +126,5 @@ public class Config {
             Logger.loge(e.toString());
         }
         return inner_hook_packages;
-    }
-
-
-    /**
-     * Get hanler instance list.
-     *
-     * @param class_name the class name
-     * @return the list
-     */
-    public static SekiroRequestHandler GetHanlerInstance(String class_name) {
-        return handlers_map.get(class_name);
     }
 }

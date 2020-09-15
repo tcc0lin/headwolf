@@ -11,6 +11,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
+import com.lateautumn4lin.headwolf.MyApplication;
 import com.lateautumn4lin.headwolf.commons.Logger;
 
 import java.io.File;
@@ -33,11 +34,14 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
  * The type Base entry. 第一层Hook入口
  */
 public class BaseEntry implements IXposedHookLoadPackage {
-    private String modulePackage = "com.lateautumn4lin.headwolf";
+    private static String modulePackage = MyApplication.class.getPackage().getName();
     private static List<String> hookPackages = new ArrayList<String>();
     private final String handleHookClass = RealEntry.class.getName();
     private final String handleHookMethod = "handleLoadPackage";
     private static BlockingQueue blockingQueue = new ArrayBlockingQueue<>(30);
+    /**
+     * The constant threadPoolExecutor.
+     */
     public static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(50, 50, 1, TimeUnit.MINUTES, blockingQueue);
 
     static {
