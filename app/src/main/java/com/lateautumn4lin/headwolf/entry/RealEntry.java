@@ -42,6 +42,7 @@ public class RealEntry implements IXposedHookLoadPackage {
                     ),
                     "getSystemContext"
             );
+//            拿到context对象去获取包名对应的一系列handler处理方法
             HashMap<String, SekiroRequestHandler> associate_handlers = ClassesReaderAssistant.reader(context, loadPackageParam.packageName);
 //            step2:由注册类进行handler注册
             if (Register.GroupRegister(loadPackageParam, associate_handlers)) {

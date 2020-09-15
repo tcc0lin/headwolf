@@ -54,6 +54,7 @@ public class BaseEntry implements IXposedHookLoadPackage {
         try {
 //            根据配置文件设置需要hook的包名
             try {
+                // 获取context对象
                 Context context = (Context) XposedHelpers.callMethod(
                         XposedHelpers.callStaticMethod(
                                 XposedHelpers.findClass(
@@ -71,12 +72,14 @@ public class BaseEntry implements IXposedHookLoadPackage {
 //            包含配置文件中配置的包名则进入真正Hook逻辑
             if ((hookPackages != null) && (hookPackages.contains(loadPackageParam.processName)) && (!loadPackageParam.processName.equals(modulePackage))) {
                 try {
+//                    得到目标app的classloader并替换原有classloader
                     XposedHelpers.findAndHookMethod(Application.class, "attach", Context.class, new XC_MethodHook() {
                         @Override
                         protected void afterHookedMethod(XC_MethodHook.MethodHookParam param) throws Throwable {
                             Logger.logi(String.format("Get Needed Hook Package:%s", loadPackageParam.packageName));
                             Context context = (Context) param.args[0];
                             loadPackageParam.classLoader = context.getClassLoader();
+//                            反射调用真正hook逻辑类的handleLoadPackage函数
                             invokeHandleHookMethod(context, modulePackage, handleHookClass, handleHookMethod, loadPackageParam);
                         }
                     });
@@ -101,11 +104,13 @@ public class BaseEntry implements IXposedHookLoadPackage {
      */
     private void invokeHandleHookMethod(Context context, String modulePackageName, String handleHookClass, String handleHookMethod, XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
         try {
+//            同样的寻包过程
             File apkFile = findApkFile(context, modulePackageName);
             if (apkFile == null) {
                 throw new RuntimeException("Find Apk File Error");
             }
             Logger.logi(String.format("Get Apk File:%s", apkFile.toString()));
+//            新建pathclassloader得到真正hook逻辑类，并调用hook方法
             PathClassLoader pathClassLoader = new PathClassLoader(apkFile.getAbsolutePath(), XposedBridge.BOOTCLASSLOADER);
             Class<?> cls = Class.forName(handleHookClass, true, pathClassLoader);
             Logger.logi(String.format("Get ClassLoader:%s", apkFile.toString()));
@@ -147,9 +152,12 @@ public class BaseEntry implements IXposedHookLoadPackage {
     private void setNeedHookPackage(Context context) {
         ArrayList<String> NeedHookPackage = new ArrayList<String>();
         try {
+//            根据context对象获取当前apk路径
             String path = findApkFile(context, modulePackage).toString();
+//            简单暴力使用zip来解包获取config文件，之前采用getSource发现加入免重启功能后导致获取原包路径失败，因此换用这种方案
             ZipFile zipFile = new ZipFile(path);
             ZipEntry zipEntry = zipFile.getEntry("assets/config");
+//            读流数据转化成arraylist
             InputStream inputStream = zipFile.getInputStream(zipEntry);
             InputStreamReader in = new InputStreamReader(inputStream);
             BufferedReader br = new BufferedReader(in);
