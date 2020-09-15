@@ -110,7 +110,7 @@ step3: run the test project E.g kuaishou
 
 ![step3](https://github.com/lateautumn4lin/headwolf/blob/master/sources/step3.png)
 
-**step4：** 在Config文件中预先添加handler的实例，没有实现动态添加，后续补充
+~~**step4：** 在Config文件中预先添加handler的实例，没有实现动态添加，后续补充~~
 
 >路径：com.lateautumn4lin.headwolf.Config
 
