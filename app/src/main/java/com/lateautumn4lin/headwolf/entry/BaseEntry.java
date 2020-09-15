@@ -14,7 +14,10 @@ import android.content.pm.PackageManager;
 import com.lateautumn4lin.headwolf.MyApplication;
 import com.lateautumn4lin.headwolf.commons.Logger;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import dalvik.system.PathClassLoader;
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -35,7 +40,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
  */
 public class BaseEntry implements IXposedHookLoadPackage {
     private static String modulePackage = MyApplication.class.getPackage().getName();
-    private static List<String> hookPackages = new ArrayList<String>();
+    private static List<String> hookPackages = null;
     private final String handleHookClass = RealEntry.class.getName();
     private final String handleHookMethod = "handleLoadPackage";
     private static BlockingQueue blockingQueue = new ArrayBlockingQueue<>(30);
@@ -44,15 +49,27 @@ public class BaseEntry implements IXposedHookLoadPackage {
      */
     public static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(50, 50, 1, TimeUnit.MINUTES, blockingQueue);
 
-    static {
-        hookPackages.add("com.smile.gifmaker");
-    }
-
     @Override
     public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
         try {
+//            根据配置文件设置需要hook的包名
+            try {
+                Context context = (Context) XposedHelpers.callMethod(
+                        XposedHelpers.callStaticMethod(
+                                XposedHelpers.findClass(
+                                        "android.app.ActivityThread",
+                                        loadPackageParam.classLoader
+                                ),
+                                "currentActivityThread"
+                        ),
+                        "getSystemContext"
+                );
+                setNeedHookPackage(context);
+            } catch (Exception e) {
+                Logger.loge(String.format("Set NeedHookPackage Accounding:%s Error", modulePackage));
+            }
 //            包含配置文件中配置的包名则进入真正Hook逻辑
-            if (hookPackages.contains(loadPackageParam.packageName)) {
+            if ((hookPackages != null) && (hookPackages.contains(loadPackageParam.processName)) && (!loadPackageParam.processName.equals(modulePackage))) {
                 try {
                     XposedHelpers.findAndHookMethod(Application.class, "attach", Context.class, new XC_MethodHook() {
                         @Override
@@ -119,6 +136,35 @@ public class BaseEntry implements IXposedHookLoadPackage {
         } catch (PackageManager.NameNotFoundException e) {
             Logger.loge(String.format("Find File Error，Package:%s", modulePackageName));
             return null;
+        }
+    }
+
+    /**
+     * Sets need hook package.
+     *
+     * @param context the context
+     */
+    private void setNeedHookPackage(Context context) {
+        ArrayList<String> NeedHookPackage = new ArrayList<String>();
+        try {
+            String path = findApkFile(context, modulePackage).toString();
+            ZipFile zipFile = new ZipFile(path);
+            ZipEntry zipEntry = zipFile.getEntry("assets/config");
+            InputStream inputStream = zipFile.getInputStream(zipEntry);
+            InputStreamReader in = new InputStreamReader(inputStream);
+            BufferedReader br = new BufferedReader(in);
+            String line;
+            StringBuilder sb = new StringBuilder();
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+                if (line.contains(".name")) {
+                    String[] new_line = line.split("=");
+                    NeedHookPackage.add(new_line[1]);
+                }
+            }
+            hookPackages = NeedHookPackage;
+        } catch (Exception e) {
+            Logger.loge(e.toString());
         }
     }
 }

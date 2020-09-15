@@ -92,7 +92,7 @@ step3: run the test project E.g kuaishou
 
 ## Usage
 
-**step1：** 在源码中加入hook app的包名，由于技术lj，没有能够实现自动加载配置文件、后续实现
+~~**step1：** 在源码中加入hook app的包名，由于技术lj，没有能够实现自动加载配置文件、后续实现~~
 
 >路径：com.lateautumn4lin.headwolf.entry.BaseEntry
 
