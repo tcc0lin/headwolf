@@ -29,7 +29,6 @@ public class RealEntry implements IXposedHookLoadPackage {
     public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
         try {
 //            测试
-            Logger.logi("test");
             Logger.logi(String.format("Begin Real Hook Logic About:%s", loadPackageParam.packageName));
 //            step1:获取context
             Context context = (Context) XposedHelpers.callMethod(

@@ -20,14 +20,14 @@ import java.util.Map;
 /**
  * The type Kuaishou handler.
  */
-public class KuaishouHandler extends BaseHandler implements SekiroRequestHandler {
+public class TaobaoHandler extends BaseHandler implements SekiroRequestHandler {
     /**
      * Gets belong.
      *
      * @return the belong
      */
     public String getBelong() {
-        return "com.smile.gifmaker";
+        return "com.taobao.live";
     }
 
     /**
@@ -45,7 +45,7 @@ public class KuaishouHandler extends BaseHandler implements SekiroRequestHandler
         final Gson gson = new Gson();
         final Map<String, String> object = new HashMap<String, String>();
         String name = sekiroRequest.getString("name");
-        object.put("name", name + " again kuaishou no.3");
+        object.put("name", name + " again taobao no.2");
 //        测试三种请求返回方式  测试方案 1000/s 总请求 50*1000
 //        P1:阻塞返回
 //        sekiroResponse.send(gson.toJson(object));

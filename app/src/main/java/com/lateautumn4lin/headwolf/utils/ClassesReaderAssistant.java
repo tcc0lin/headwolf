@@ -112,6 +112,7 @@ public final class ClassesReaderAssistant {
                         Class classloader = RealEntry.class.getClassLoader().loadClass(cls.getName());
                         Constructor handler_constructor = classloader.getConstructor();
                         Object handler = handler_constructor.newInstance();
+                        Logger.logi(String.format("New Object %s", handler));
                         associate_handlers.put((String) action, (SekiroRequestHandler) handler);
                     }
                 } catch (NoSuchMethodException e) {

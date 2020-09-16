@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Headwolf框架</string>
+    <string name="hook_app_handlers">自动注册hook app的handlers</string>
 </resources>
