@@ -8,4 +8,4 @@ group_kuaishou.name=com.smile.gifmaker
 group_kuaishou.home=com.yxcorp.gifshow.HomeActivity
 //ÌÔ±¦Ö±²¥ÏîÄ¿
 group_taobao.name=com.taobao.live
-group_taobao.home=com.taobao.live.home.activity.HomePage3Activity
+group_taobao.home=com.taobao.live.home.activity.HomePage2Activity,com.taobao.live.home.activity.HomePage3Activity

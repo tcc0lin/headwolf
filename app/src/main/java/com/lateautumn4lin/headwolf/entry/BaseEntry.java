@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 
 import com.lateautumn4lin.headwolf.MyApplication;
 import com.lateautumn4lin.headwolf.commons.Logger;
+import com.lateautumn4lin.headwolf.utils.PreferenceAssistant;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -30,7 +31,9 @@ import java.util.zip.ZipFile;
 
 import dalvik.system.PathClassLoader;
 import de.robv.android.xposed.IXposedHookLoadPackage;
+import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
@@ -38,7 +41,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 /**
  * The type Base entry. 第一层Hook入口
  */
-public class BaseEntry implements IXposedHookLoadPackage {
+public class BaseEntry implements IXposedHookLoadPackage, IXposedHookZygoteInit {
     private static String modulePackage = MyApplication.class.getPackage().getName();
     private static List<String> hookPackages = null;
     private final String handleHookClass = RealEntry.class.getName();
@@ -50,8 +53,16 @@ public class BaseEntry implements IXposedHookLoadPackage {
     public static ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(50, 50, 1, TimeUnit.MINUTES, blockingQueue);
 
     @Override
+    public void initZygote(IXposedHookZygoteInit.StartupParam startupParam) {
+        PreferenceAssistant.initPref();
+    }
+
+    @Override
     public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
         try {
+//            获取全局有Zygote初始化的变量
+            XSharedPreferences x = PreferenceAssistant.getPref(loadPackageParam.packageName);
+            String t = x.getAll().toString();
 //            根据配置文件设置需要hook的包名
             try {
                 // 获取context对象

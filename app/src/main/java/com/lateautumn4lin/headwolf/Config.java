@@ -10,17 +10,11 @@ package com.lateautumn4lin.headwolf;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.lateautumn4lin.headwolf.commons.Logger;
-import com.lateautumn4lin.headwolf.handlers.KuaishouHandler;
 import com.lateautumn4lin.headwolf.utils.PropertiesAssistant;
-import com.virjar.sekiro.api.SekiroRequestHandler;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-
-import static java.util.Arrays.asList;
-
 
 /**
  * The type Config.

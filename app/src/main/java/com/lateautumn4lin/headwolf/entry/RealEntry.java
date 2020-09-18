@@ -25,11 +25,13 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
  * The type Real entry.
  */
 public class RealEntry implements IXposedHookLoadPackage {
+    private boolean RegisterState = false;
+
     @Override
     public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
         try {
 //            测试
-            Logger.logi(String.format("Begin Real Hook Logic About:%s", loadPackageParam.packageName));
+            Logger.logi(String.format("Begin Real Hook Logic About:%s %s", loadPackageParam.packageName, RegisterState));
 //            step1:获取context
             Context context = (Context) XposedHelpers.callMethod(
                     XposedHelpers.callStaticMethod(
@@ -46,6 +48,7 @@ public class RealEntry implements IXposedHookLoadPackage {
 //            step2:由注册类进行handler注册
             if (Register.GroupRegister(loadPackageParam, associate_handlers)) {
                 Logger.logi(String.format("Real Hook Logic About:%s Success", loadPackageParam.packageName));
+                RegisterState = true;
             } else {
                 Logger.logi(String.format("Real Hook Logic About:%s Error", loadPackageParam.packageName));
             }

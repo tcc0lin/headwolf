@@ -14,7 +14,6 @@ import android.content.Context;
 import com.lateautumn4lin.headwolf.Config;
 import com.lateautumn4lin.headwolf.commons.Logger;
 import com.lateautumn4lin.headwolf.entry.RealEntry;
-import com.lateautumn4lin.headwolf.handlers.KuaishouHandler;
 import com.virjar.sekiro.api.SekiroRequestHandler;
 
 import java.io.File;
