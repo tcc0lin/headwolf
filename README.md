@@ -53,6 +53,7 @@
 
   > 测试类
   - **KuaishouHandler**
+  - **其他**
 
 > 初始化管理类
 - **initialization**
@@ -77,6 +78,9 @@
 
   > 配置文件助手
   - **PropertiesAssistant**
+
+  > XSharedPreferences类助手
+  - **PreferenceAssistant**
   
 - **Config**
 
