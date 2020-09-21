@@ -47,6 +47,8 @@ public class RealEntry implements IXposedHookLoadPackage {
             HashMap<String, SekiroRequestHandler> associate_handlers = ClassesReaderAssistant.reader(context, loadPackageParam.packageName);
 //            step2:由注册类进行handler注册
             if (Register.GroupRegister(loadPackageParam, associate_handlers)) {
+//                初始化对应handler的model
+                ClassesReaderAssistant.init(context, loadPackageParam.packageName, loadPackageParam.classLoader);
                 Logger.logi(String.format("Real Hook Logic About:%s Success", loadPackageParam.packageName));
                 RegisterState = true;
             } else {

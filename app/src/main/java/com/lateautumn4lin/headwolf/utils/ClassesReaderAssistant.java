@@ -127,6 +127,35 @@ public final class ClassesReaderAssistant {
 
 
     /**
+     * Init.
+     *
+     * @param context       the context
+     * @param associateName the associate name
+     * @param classLoader   the class loader
+     */
+    public static void init(Context context, String associateName, ClassLoader classLoader) {
+        String packageName = String.format("%s.models", Config.GetPackageName());
+        final String group_name = Config.GetGroup(associateName);
+        final String feature_name = group_name.split("_")[1];
+        try {
+            Context moudleContext = context.createPackageContext(Config.GetPackageName(), Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY);
+            List<Class<?>> associate_classes = reader(packageName, moudleContext.getPackageCodePath());
+            for (Class<?> cls : associate_classes)
+                try {
+                    Logger.logi(String.format("%s,get", cls.getName().toLowerCase()));
+                    if (cls.getName().toLowerCase().contains(feature_name)) {
+                        Method init = cls.getDeclaredMethod("init", ClassLoader.class);
+                        init.invoke(null, classLoader);
+                    }
+                } catch (Exception e) {
+                    Logger.loge(e.toString());
+                }
+        } catch (Exception e) {
+            Logger.loge(e.toString());
+        }
+    }
+
+    /**
      * Reader list.
      *
      * @param packageName     the package name
