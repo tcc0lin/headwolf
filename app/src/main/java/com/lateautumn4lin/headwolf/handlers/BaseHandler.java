@@ -12,6 +12,7 @@ package com.lateautumn4lin.headwolf.handlers;
  * The type Base handler.
  */
 public abstract class BaseHandler {
+
     /**
      * Gets belong.
      *
