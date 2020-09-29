@@ -1,3 +1,5 @@
+![Logo](https://github.com/lateautumn4lin/headwolf/blob/master/sources/logo.png)
+
 <h1 align="center">Welcome to headwolf 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-v0.01-blue.svg?cacheSeconds=2592000" />
